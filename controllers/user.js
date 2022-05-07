@@ -1,13 +1,12 @@
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 // POST Signup
 exports.signup = (req, res, next) => {
-  const regex =/^/ 
-  //regexp pour prod 
-  // Min 8 characters 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number
-  // const regex = /^(?=.[a-z])(?=.[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ 
+  
+  // Min 1 Majuscule, 1 minuscule Alphabet,  1 chiffre , 1 caractere spécial
+  const regex =/([a-zA-Z][0-9]).+$/
 
   if (req.body.password.match(regex)) {
   bcrypt.hash(req.body.password, 10)

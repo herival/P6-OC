@@ -4,15 +4,15 @@
   "description": "backend p6 openclassrooms",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server"
+    "start": "node server",
+    "dev": "nodemon server"
   },
-  "author": "",
+  "author": "Herimalala VALISOA",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "crypto-js": "^4.0.0",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-mongo-sanitize": "^2.0.1",
     "jsonwebtoken": "^8.5.1",
