@@ -12,9 +12,6 @@ exports.signup = (req, res, next) => {
   if (req.body.password.match(regex)) {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
-      // const buf = Buffer.alloc(56);
-
-      // buf.write(req.body.email);
       let emailString = req.body.email.toString();
 
       const user = new User({
