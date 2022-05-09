@@ -34,15 +34,31 @@ exports.modifySauce = (req, res, next) => {
 // Supprimer une sauce
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
-    .then(sauce => {
-      const filename = sauce.imageUrl.split('/images/')[1];
-      fs.unlink(`images/${filename}`, () => {
-        Sauce.deleteOne({ _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Sauce supprimée !'}))
-          .catch(error => res.status(400).json({ error }));
-      });
-    })
+    .then(
+      (sauce) => {
+        if (!sauce) {
+          return res.status(404).json({
+            error: new Error('Sauce non trouvé!')
+          });
+        }
+        // controller si le propriétaire de la sauce est bien celui qui est connecté
+        if (sauce.userId !== req.auth.userId) {
+          return res.status(400).json({
+            error: new Error('Requête non autorisée!')
+          })
+        }
+        const filename = sauce.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+          Sauce.deleteOne({ _id: req.params.id })
+            .then(() => res.status(200).json({ message: 'Sauce supprimée !'}))
+            .catch(error => res.status(400).json({ error }));
+        });
+        
+
+      }  
+    )
     .catch(error => res.status(500).json({ error }));
+
 };
 
 // Récuperer toute les sauces dans la collection
