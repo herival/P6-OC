@@ -4,9 +4,12 @@ const User = require('../models/User');
 
 // POST Signup
 exports.signup = (req, res, next) => {
-  const regex =/^/ 
+  // const regex =/^/ 
   //regexp pour prod 
+
   // Min 8 characters 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number
+  const regex =/^(?=.{8,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/
+
   // const regex = /^(?=.[a-z])(?=.[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ 
 
   if (req.body.password.match(regex)) {
